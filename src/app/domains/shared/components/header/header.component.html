@@ -1,0 +1,135 @@
+<!-- BARRA DE NAVEGACION -->
+
+<nav>
+  <div class="w-full flex flex-wrap items-center justify-between mx-auto py-4">
+    <div class="flex items-center space-x-8">
+      <a
+        href="https://github.com/R3ymon"
+        target="_blank"
+        class="flex items-center"
+      >
+        <img
+          src="/assets/shopsvg.svg"
+          class="w-10 mr-3 relative shadow-md left-3"
+          alt="reymon logo"
+        />
+        <span
+          class="self-center relative border-2 border-black p-2 left-4 text-xl shadow-md font-semibold whitespace-nowrap rounded-full"
+          >Shopi</span
+        >
+      </a>
+      <ul class="flex space-x-6">
+        <li>
+          <a
+            routerLink="/"
+            routerLinkActive="underline"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="block border-2 border-black rounded-full w-20 text-center shadow-md hover:underline"
+            aria-current="page"
+            >Inicio</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/about"
+            routerLinkActive="underline"
+            class="block rounded-full border-2 border-black w-20 text-center shadow-md hover:underline"
+            >About</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/service"
+            routerLinkActive="underline"
+            class="block rounded-full border-2 border-black w-20 text-center shadow-md hover:underline"
+            >Servicios</a
+          >
+        </li>
+      </ul>
+    </div>
+    <!-- LOGOS -->
+
+    <div class="flex items-center">
+      <button
+        class="p-2 border-2 border-black rounded relative shadow-lg"
+        (click)="toogleSideMenu()"
+      >
+        @if (cart().length > 0){
+        <div
+          class="absolute -top-3 -left-3 rounded h-5 w-5 bg-red-500 border-2 border-black text-white text-xs"
+        >
+          {{ cart().length }}
+        </div>
+
+        }
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<!-- BARRA DEL CARRITO DE COMPRAS -->
+<div
+  class="fixed border-l-4 top-0 right-0 bg-red z-40 w-72 h-screen p-4 overflow-y-auto transition-transform bg-white translate-x-full"
+  [class.translate-x-full]="hideSideMenu()"
+>
+  <div class="flex justify-between items-center">
+    <p class="text-xl">Carrito ({{ cart().length }})</p>
+
+    <button (click)="toogleSideMenu()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6 border-2 border-black rounded hover:bg-black hover:text-white"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+    <!-- PRODUCTOS QUE SE VAN AÑADIENDO AL CARRITO -->
+  </div>
+  @for (product of cart(); track product) {
+  <div>
+    <div class="max-w-50 mt-5 bg-white border-2 border-black rounded-lg shadow">
+      <img class="rounded-t-lg" [src]="product.images[0]" />
+      <div class="p-5">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+          {{ product.title }}
+        </h5>
+        <p class="mb-2 text-lg font-bold tracking-tight">
+          ${{ product.price }}
+        </p>
+        <p class="mb-2 text-base text-black tracking-tight">
+          {{ product.id }}
+        </p>
+      </div>
+    </div>
+  </div>
+  }
+  <div>
+    <p
+      class="border-4 border-black rounded-md text-center mt-2 text-lg font-bold"
+    >
+      Total: ${{ total() }}
+    </p>
+  </div>
+</div>

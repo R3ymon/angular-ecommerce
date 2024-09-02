@@ -1,0 +1,29 @@
+<div class="group shadow-md border-2 border-black rounded-lg">
+  <a
+    [routerLink]="['/product', product.id]"
+    class="w-full overflow-hidden rounded-t-lg bg-gray-200"
+  >
+    <img
+      [src]="product.images[0]"
+      [alt]="product.title"
+      class="h-full w-full object-cover object-center group-hover:opacity-75 rounded-md"
+    />
+  </a>
+  <div class="flex flex-col space-y-2 p-4">
+    <h3 class="text-sm font-semibold text-gray-700">
+      {{ product.title | uppercase }}
+    </h3>
+    <p class="text-lg font-medium text-gray-900">
+      {{ product.price | currency : "$" : "symbol" : "1.0" }}
+    </p>
+    <p class="text-sm font-medium text-gray-400">
+      Created {{ product.creationAt | timeAgo }}
+    </p>
+    <button
+      class="text-black border-2 border-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full hover:bg-gray-200 transition duration-300"
+      (click)="handlerAddToCart()"
+    >
+      Agregar al carrito
+    </button>
+  </div>
+</div>
